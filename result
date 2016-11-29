@@ -20,12 +20,13 @@
      ✓ should allow for searching events by title
    
    The about page
-     7) "before all" hook
+     7) should have people on it
+     8) should have a picture of each person
    
    The event detail pages
-     8) should exist for each event and should have title, image, etc
-     9) should allow Yale users to RSVP
-     10) should reject RSVPs from non-Yale addresses
+     9) should exist for each event and should have title, image, etc
+     10) should allow Yale users to RSVP
+     11) should reject RSVPs from non-Yale addresses
    
    The new event creation page
      ✓ should exist
@@ -53,43 +54,13 @@
      ✓ should display errors to the user when the location is empty
      ✓ should display errors to the user when the title is too long
      ✓ should display errors to the user when the title is empty
-     11) should redirect the user to the event detail page if the form is valid
+     ✓ should redirect the user to the event detail page if the form is valid
 
-   Executed 41 tests in 7 suites in 1s 889ms
-       31 passes
+   Executed 43 tests in 7 suites in 1s 694ms
+       32 passes
        11 failed
    
-   11) The form for creating new events should redirect the user to the event detail page if the form is valid
-   
-       Bad redirect location, it should look like events/4, events/5, etc: expected '/events' to match /events\/\d+\/?$/
-       
-       at Request._callback (test/test.js:503:48)
-       
-       502 |       assert.ok(httpResponse.headers.hasOwnProperty('location'), 'http response header should include location.');
-       503 |       expect(httpResponse.headers.location).to.match(/events\/\d+\/?$/, 'Bad redirect location, it should look like events/4, events/5, etc');
-       504 |       done();
-       
-       at Request.self.callback (node_modules/request/request.js:187:22)
-       
-       186 |       self._callbackCalled = true
-       187 |       self._callback.apply(self, arguments)
-       188 |     }
-       
-       at Request.<anonymous> (node_modules/request/request.js:1048:10)
-       
-       1047 |     }
-       1048 |     self.emit('complete', response, response.body)
-       1049 |   })
-       
-       at IncomingMessage.<anonymous> (node_modules/request/request.js:969:12)
-       
-       968 |     responseContent.on('end', function (chunk) {
-       969 |       self.emit('end', chunk)
-       970 |     })
-       
-       at endReadableNT (_stream_readable.js:921:12)
-   
-   10) The event detail pages should reject RSVPs from non-Yale addresses
+   11) The event detail pages should reject RSVPs from non-Yale addresses
    
        No INPUT matching 'email'
        
@@ -139,7 +110,7 @@
        20 |     if(domain)domain.exit();
        
    
-   9) The event detail pages should allow Yale users to RSVP
+   10) The event detail pages should allow Yale users to RSVP
    
        No INPUT matching 'email'
        
@@ -189,7 +160,7 @@
        20 |     if(domain)domain.exit();
        
    
-   8) The event detail pages should exist for each event and should have title, image, etc
+   9) The event detail pages should exist for each event and should have title, image, etc
    
        Couldn't retreive all events at /events/:id.
        
@@ -279,34 +250,31 @@
        20 |     if(domain)domain.exit();
        
    
-   7) The about page "before all" hook
+   8) The about page should have a picture of each person
    
-       Server returned status code 500 from http://localhost:3005/about
+       Found 0 people and 0 images.
        
-       at node_modules/zombie/lib/document.js:713:39
-           at /source/document.js:578:14
-           
-           577 |       if (response.status >= 400)
-           578 |         throw new Error(`Server returned status code ${response.status} from ${response.url}`);
-           579 |       if (!document.documentElement)
-           
-       at run (node_modules/zombie/node_modules/babel-runtime/node_modules/core-js/library/modules/es6.promise.js:108:47)
+       + expected - actual
        
-       107 |           if(!ok)record.h = true;
-       108 |           result = handler === true ? value : handler(value);
-       109 |           if(result === reaction.promise){
+       -false
+       +true
        
-       at node_modules/zombie/node_modules/babel-runtime/node_modules/core-js/library/modules/es6.promise.js:119:28
+       at Context.<anonymous> (test/test.js:207:12)
        
-       118 |     };
-       119 |     while(chain.length > i)run(chain[i++]); // variable length - can't use forEach
-       120 |     chain.length = 0;
+       206 |     var numImages = this.browser.queryAll('img[id$="-headshot"]').length;
+       207 |     assert.ok(numPeople === numImages && numPeople > 0, 'Found ' + numPeople + ' people and ' + numImages + ' images.');
+       208 |   });
        
-       at flush (node_modules/zombie/node_modules/babel-runtime/node_modules/core-js/library/modules/$.microtask.js:19:5)
+   
+   7) The about page should have people on it
+   
+       Expected spans with name-based ids on page at /about
        
-       18 |     if(domain)domain.enter();
-       19 |     fn(); // <- currently we use it only for Promise - try / catch not required
-       20 |     if(domain)domain.exit();
+       at Context.<anonymous> (test/test.js:201:12)
+       
+       200 |   it('should have people on it', function(){
+       201 |     assert.ok(this.browser.query('span[id$="-name"]'), 'Expected spans with name-based ids on page at ' + this.browser.location.pathname);
+       202 |   });
        
    
    6) The home page should have a link for each event
