@@ -132,7 +132,12 @@ function rsvp (request, response){
     response.status(404).send('No such event');
   }
 
-  if(validator.isEmail(request.body.email)){
+  console.log(validator.isEmail(request.body.email));
+  
+  var isEmail = validator.isEmail(request.body.email);
+  var isYaleEmail = request.body.email.toLowerCase().endsWith('@yale.edu');
+  
+  if(isEmail && isYaleEmail){
     ev.attending.push(request.body.email);
     response.redirect('/events/' + ev.id);
   }else{
