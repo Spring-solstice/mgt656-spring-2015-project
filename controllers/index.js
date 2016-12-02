@@ -9,7 +9,7 @@ var events = require('../models/events');
 function index (request, response) {
   var now = new Date();
   var contextData = {
-    'title': 'BestEvent',
+    'title': 'BestEventEver',
     'tagline': 'Discover Best Event in your life.',
     'events': events.all
   };
@@ -21,7 +21,13 @@ function index (request, response) {
   }
   response.render('index.html', contextData);
 }
+function report (request, response) {
+ 
+  response.render('report.html', {});
+}
 
 module.exports = {
-  index: index
+  index: index,
+  report: report
 };
+

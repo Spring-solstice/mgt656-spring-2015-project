@@ -9,6 +9,7 @@ var indexControllers = require('./controllers/index.js');
 var aboutControllers = require('./controllers/about.js');
 var eventControllers = require('./controllers/events.js');
 
+
 //alexandra's change
 
 // Create our express app
@@ -26,5 +27,6 @@ app.get('/api/events', eventControllers.api);
 app.get('/events/:id', eventControllers. eventDetail);
 app.post('/events/new', eventControllers.saveEvent);
 app.post('/events/:id', eventControllers.rsvp);
+app.get('/finalreport', indexControllers.report);
 
 module.exports = app;
